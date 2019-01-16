@@ -1,0 +1,21 @@
+version: '2'
+services:
+  api:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres 
+  
+  postgres:
+    image: postgres:latest 
+    ports:
+      - "5432:5432"
+  
+  # shared gem set service
+  gems:
+    image: busybox 
+    volumes: 
+    - /ruby_gems
