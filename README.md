@@ -1,7 +1,7 @@
-===TODO
+# TODO
 initialize app in docker
 
-= Create Tables
+### Create Tables
 Users
 Lists
 Cards
