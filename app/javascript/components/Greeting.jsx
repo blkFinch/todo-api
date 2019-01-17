@@ -3,7 +3,14 @@ import React from 'react';
 export default class Greeting extends React.Component {
   render() {
     return (
-      <h1>Hi, I'm example React Component!</h1>
+      <div class="container">
+        <h1 class="title">
+          Hello World from react
+        </h1>
+        <p class="subtitle">
+          My first website with <strong>Bulma</strong>!
+        </p>
+      </div>
     );
   }
 }

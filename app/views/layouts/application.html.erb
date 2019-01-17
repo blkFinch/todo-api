@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>App</title>
+    <title>Todo</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- this section for bulma requirements-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!--end bulma -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
     <%= javascript_pack_tag 'application' %>
   </head>
 
