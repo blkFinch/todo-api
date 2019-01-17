@@ -8,6 +8,11 @@ docker run --rm -v $(pwd):/app -w /app ruby:2.6 bundle install && rails new --da
 ```
 
 #NOTES
+To build react on rails app like this use
+
+'''
+rails new --database=postgresql --webpack=react --skip-sprockets -T
+'''
 
 ##Setting Up React
 /app/assets/ - Rails will compile any resources in this folder. JavaScript files in this folder can be included in your views with <%= javascript_include_tag %>.
