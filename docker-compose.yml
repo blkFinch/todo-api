@@ -9,6 +9,9 @@ services:
     ports:
       - "3000:3000"
     command: [ sh, -c, "rm -rf /app/tmp/pids/server.pid && yarn install && bundle exec rails s -b 0.0.0.0" ] #removes tmp pids and runs yarn install
+
+    # command: tail -f /dev/null
+    # prevents the container from closing
     depends_on:
       - postgres
       - webpack
@@ -35,13 +38,6 @@ services:
       - cache:/app/tmp/cache
     ports:
         - '3036:3036'
-
-
-  # shared gem set service
-  gems:
-    image: busybox
-    volumes:
-    - /ruby_gems
 
 volumes:
   data:

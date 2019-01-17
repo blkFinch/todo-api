@@ -1,5 +1,9 @@
 FROM ruby:2.6.0
 
+RUN mkdir /app
+WORKDIR /app
+COPY Gemfile* ./
+
 RUN apt-get update -qq && apt-get install -y \
       libpq-dev \
       postgresql-contrib
@@ -15,8 +19,9 @@ RUN apt-get update -qq && apt-get install -y yarn
 
 RUN gem install bundler
 
-ENV BUNDLE_PATH /ruby_gems
+RUN bundle install && rm -rf tmp/cache
+COPY . .
 
-RUN mkdir /app
-WORKDIR /app
-ADD . /app
+
+
+
