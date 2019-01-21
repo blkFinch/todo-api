@@ -12,10 +12,27 @@ export default class CardContainer extends React.Component {
 
   componentDidMount(){
     // TODO: there may be shortcut to call rails service
-    axios.get('http://localhost:3000/api/v1/cards.json')
+    axios.get('/api/v1/cards.json')
     .then(response =>{
       console.log(response)
       this.setState({cards: response.data})
+    })
+    .catch(error => console.log(error))
+  }
+
+  addNewCard = () => {
+    axios.post(
+      '/api/v1/cards',
+      {
+        card:
+        {
+          title: 'card title',
+          body: 'card body'
+        }
+      }
+    )
+    .then(response =>{
+      console.log(response)
     })
     .catch(error => console.log(error))
   }
@@ -25,11 +42,23 @@ export default class CardContainer extends React.Component {
       <section className="section">
         <div className="container">
 
-          <h2 className="title">
-            Sample List
-          </h2>
+          <section className="hero is-primary is-bold">
+            <div className='hero-body'>
+              <h2 className="title">
+                Sample List
+              </h2>
+            </div>
+          </section>
 
           <div className="tile is-parent is-vertical">
+
+            <div className="tile is-child">
+              <a className='button is-warning'
+                onClick={this.addNewCard}>
+                  New Card
+              </a>
+            </div>
+
             {this.state.cards.map((card) => {
               return(
                 <Card card={card} key={card.id} />

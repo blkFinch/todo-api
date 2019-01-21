@@ -5,5 +5,15 @@ module Api::V1
       @cards = Card.all
       render json: @cards
     end
+
+    def create
+      @card = Card.create(card_params)
+      render json: @card
+    end
+
+    private
+      def card_params
+        params.require(:card).permit(:tile, :body)
+      end
   end
 end
