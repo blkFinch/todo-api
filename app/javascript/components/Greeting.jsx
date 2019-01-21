@@ -1,4 +1,5 @@
 import React from 'react';
+import CardContainer from './CardContainer';
 
 export default class Greeting extends React.Component {
   render() {
@@ -11,6 +12,9 @@ export default class Greeting extends React.Component {
           <p className="subtitle">
             My first website with <strong>Bulma</strong>!
           </p>
+        </div>
+        <div className="container">
+          <CardContainer />
         </div>
       </section>
     );

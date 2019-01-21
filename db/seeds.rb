@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+cards = Card.create([
+  {
+    title: "Add sessions/users",
+    body: "users should be able to login to access a list of projects and lists"
+  },
+  {
+    title:"Add lists",
+    body:"every card should be long to a list"
+  },
+  {
+    title: "Single page or Multi-page??",
+    body:"should the app be entirely react or use some rails routing etc..."
+  },
+  {
+    title: "add status to cards",
+    body: "cards should have a status to decide if pending or done or in progress etc..."
+  }
+])
