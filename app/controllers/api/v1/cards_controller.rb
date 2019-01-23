@@ -13,7 +13,7 @@ module Api::V1
 
     private
       def card_params
-        params.require(:card).permit(:tile, :body)
+        params.require(:card).permit(:title, :body)
       end
   end
 end

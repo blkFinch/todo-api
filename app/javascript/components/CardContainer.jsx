@@ -11,7 +11,6 @@ export default class CardContainer extends React.Component {
   }
 
   componentDidMount(){
-    // TODO: there may be shortcut to call rails service
     axios.get('/api/v1/cards.json')
     .then(response =>{
       console.log(response)
@@ -21,16 +20,24 @@ export default class CardContainer extends React.Component {
   }
 
   addNewCard = () => {
-    axios.post(
-      '/api/v1/cards',
-      {
+
+    var token = document.querySelector('meta[name=csrf-token]').content
+
+    axios({
+      method: 'post',
+      url: '/api/v1/cards.json',
+      data:{
         card:
         {
-          title: 'card title',
-          body: 'card body'
+          title: "card title",
+          body: "card body"
         }
-      }
-    )
+      },
+      headers:{
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': token
+      },
+    })
     .then(response =>{
       console.log(response)
     })
