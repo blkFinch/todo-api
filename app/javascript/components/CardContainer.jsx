@@ -1,16 +1,22 @@
 import React from 'react';
 import axios from 'axios';
+import update from 'immutability-helper';
 import Card from './Card';
+import CardForm from './CardForm';
 
 export default class CardContainer extends React.Component {
   constructor(props){
     super(props)
     this.state ={
-      cards: []
+      cards: [],
+      editingCardId: null,
     }
   }
 
   componentDidMount(){
+    var token = document.querySelector('meta[name=csrf-token]').content
+    axios.defaults.headers.common['X-CSRF-Token'] = token
+
     axios.get('/api/v1/cards.json')
     .then(response =>{
       console.log(response)
@@ -21,25 +27,24 @@ export default class CardContainer extends React.Component {
 
   addNewCard = () => {
 
-    var token = document.querySelector('meta[name=csrf-token]').content
-
-    axios({
-      method: 'post',
-      url: '/api/v1/cards.json',
-      data:{
+    axios.post('/api/v1/cards.json',
+      {
         card:
         {
           title: "card title",
           body: "card body"
         }
-      },
-      headers:{
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': token
-      },
-    })
+      }
+    )
     .then(response =>{
       console.log(response)
+      const cards = update(this.state.cards, {
+        $splice: [[0,0, response.data]] //adds data to index[0]
+      })
+      this.setState({
+        cards: cards,
+        editingCardId: response.data.id
+      })
     })
     .catch(error => console.log(error))
   }
@@ -67,13 +72,15 @@ export default class CardContainer extends React.Component {
             </div>
 
             {this.state.cards.map((card) => {
-              return(
-                <Card card={card} key={card.id} />
-              )
+              if(this.state.editingCardId == card.id){
+                return(<CardForm card={card} key={card.id} />)
+              }else{
+                return(
+                  <Card card={card} key={card.id} />
+                )
+              }
             })}
           </div>
-
-
         </div>
       </section>
     );
