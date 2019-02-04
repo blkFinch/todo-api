@@ -26,7 +26,7 @@ export default class CardForm extends React.Component{
         card: card
     })
     .then(response => {
-      console.log(response)
+      this.props.updateCard(response.data)
     })
     .catch(error => console.log(error))
   }

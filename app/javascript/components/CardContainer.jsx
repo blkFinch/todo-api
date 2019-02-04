@@ -10,6 +10,7 @@ export default class CardContainer extends React.Component {
     this.state ={
       cards: [],
       editingCardId: null,
+      notification: ''
     }
   }
 
@@ -49,9 +50,19 @@ export default class CardContainer extends React.Component {
     .catch(error => console.log(error))
   }
 
+  updateCard = (card) => {
+    const cardIndex = this.state.cards.findIndex( x => x.id === card.id)
+    const cards = update(this.state.cards, {
+      [cardIndex]: { $set: card }
+    })
+    this.setState({
+      cards: cards,
+      notification: 'Card Saved!'
+    })
+  }
+
   render() {
     return (
-      <section className="section">
         <div className="container">
 
           <section className="hero is-primary is-bold">
@@ -63,7 +74,7 @@ export default class CardContainer extends React.Component {
           </section>
 
           <div className="tile is-parent is-vertical">
-
+            <span className="notification">{this.state.notification}</span>
             <div className="tile is-child">
               <a className='button is-warning'
                 onClick={this.addNewCard}>
@@ -71,9 +82,10 @@ export default class CardContainer extends React.Component {
               </a>
             </div>
 
+
             {this.state.cards.map((card) => {
               if(this.state.editingCardId == card.id){
-                return(<CardForm card={card} key={card.id} />)
+                return(<CardForm card={card} key={card.id} updateCard={this.updateCard}/>)
               }else{
                 return(
                   <Card card={card} key={card.id} />
@@ -82,7 +94,6 @@ export default class CardContainer extends React.Component {
             })}
           </div>
         </div>
-      </section>
     );
   }
 }
