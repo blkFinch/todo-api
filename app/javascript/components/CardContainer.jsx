@@ -57,14 +57,36 @@ export default class CardContainer extends React.Component {
     })
     this.setState({
       cards: cards,
-      notification: 'Card Saved!'
+      notification: 'Card Saved!',
+      editingCardId: null
     })
+  }
+
+  notificationBox(){
+    if(this.state.notification != ''){
+      return(<span className="notification">{this.state.notification}</span> )
+    }else{
+      return(null);
+    }
+  }
+
+  enableEditing = (id) =>{
+    this.setState({ editingCardId: id })
+  }
+
+  deleteCard = (id) => {
+    axios.delete(`/api/v1/cards/${id}`)
+    .then(response => {
+      const cardIndex = this.state.cards.findIndex(x => x.id === id)
+      const cards = update(this.state.cards, { $splice: [[cardIndex, 1]]})
+      this.setState({cards: cards})
+    })
+    .catch(error => console.log(error))
   }
 
   render() {
     return (
         <div className="container">
-
           <section className="hero is-primary is-bold">
             <div className='hero-body'>
               <h2 className="title">
@@ -74,7 +96,8 @@ export default class CardContainer extends React.Component {
           </section>
 
           <div className="tile is-parent is-vertical">
-            <span className="notification">{this.state.notification}</span>
+            { this.notificationBox() }
+
             <div className="tile is-child">
               <a className='button is-warning'
                 onClick={this.addNewCard}>
@@ -88,7 +111,7 @@ export default class CardContainer extends React.Component {
                 return(<CardForm card={card} key={card.id} updateCard={this.updateCard}/>)
               }else{
                 return(
-                  <Card card={card} key={card.id} />
+                  <Card card={card} key={card.id} onClick={this.enableEditing} onDelete={this.deleteCard} />
                 )
               }
             })}

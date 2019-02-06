@@ -14,4 +14,12 @@
  *= require_self
  */
 
- @import "bulma/bulma"
+ @import "bulma/bulma";
+
+ .delete-btn {
+  visibility: hidden;
+ }
+
+ .todo-card:hover .delete-btn {
+    visibility: visible;
+ }

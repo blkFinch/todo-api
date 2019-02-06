@@ -11,6 +11,7 @@ export default class CardForm extends React.Component{
   }
 
   handleInput = (e) => {
+    this.props.resetNotification
     this.setState({[e.target.name]: e.target.value})
   }
 
@@ -33,29 +34,31 @@ export default class CardForm extends React.Component{
 
   render(){
     return(
-      <div className="tile is-vertical is-5 is-child" key={this.props.card.id}>
+      <div className="tile is-vertical is-5 is-child " key={this.props.card.id}>
 
-        <form onBlur={this.handleBlur}>
-          <div className="field">
-            <label className="label">
-              Card Title
-            </label>
-            <div className="control">
-              <input className="input" type='text' name="title"
-                value={this.state.title} onChange={this.handleInput} />
+        <div className="box has-background-light">
+          <form onBlur={this.handleBlur}>
+            <div className="field">
+              <label className="label">
+                Card Title
+              </label>
+              <div className="control">
+                <input className="input" type='text' name="title"
+                  value={this.state.title} onChange={this.handleInput} />
+              </div>
             </div>
-          </div>
 
-          <div className="field">
-            <label className="label">
-              Card Details
-            </label>
-            <div className="control">
-              <input className="input" type='text' name="body"
-                value={this.state.body} onChange={this.handleInput} />
+            <div className="field">
+              <label className="label">
+                Card Details
+              </label>
+              <div className="control">
+                <input className="input" type='textarea' name="body"
+                  value={this.state.body} onChange={this.handleInput} />
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
 
       </div>
     )
