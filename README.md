@@ -17,6 +17,14 @@
 testing framework
 
 ..*docker
+
+..*knock
+gem for handling authentication. remember to run
+```
+rails generate knock:install
+```
+to create knock config file
+
 # SETUP
 
 ##Wylans shell command

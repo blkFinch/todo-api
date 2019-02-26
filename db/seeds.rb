@@ -24,3 +24,17 @@ cards = Card.create([
     body: "cards should have a status to decide if pending or done or in progress etc..."
   }
 ])
+
+users = User.create([
+  {
+    username: "finch",
+    password: "finchpass",
+    password_confirmation: "finchpass",
+    permission_level: 2
+  },
+  {
+    username: "scout",
+    password: "scoutpass",
+    password_confirmation: "scoutpass"
+  }
+])

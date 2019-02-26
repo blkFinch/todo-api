@@ -15,15 +15,19 @@ export default class CardContainer extends React.Component {
   }
 
   componentDidMount(){
-    var token = document.querySelector('meta[name=csrf-token]').content
-    axios.defaults.headers.common['X-CSRF-Token'] = token
+
 
     axios.get('/api/v1/cards.json')
     .then(response =>{
       console.log(response)
       this.setState({cards: response.data})
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log(error);
+      if(error.response.status >= 500){
+        this.setState({notification: "You must be logged in!"})
+      }
+    })
   }
 
   addNewCard = () => {
@@ -79,7 +83,10 @@ export default class CardContainer extends React.Component {
     .then(response => {
       const cardIndex = this.state.cards.findIndex(x => x.id === id)
       const cards = update(this.state.cards, { $splice: [[cardIndex, 1]]})
-      this.setState({cards: cards})
+      this.setState({
+        cards: cards,
+        notification: 'Card Deleted!'
+      })
     })
     .catch(error => console.log(error))
   }
@@ -87,13 +94,6 @@ export default class CardContainer extends React.Component {
   render() {
     return (
         <div className="container">
-          <section className="hero is-primary is-bold">
-            <div className='hero-body'>
-              <h2 className="title">
-                Sample List
-              </h2>
-            </div>
-          </section>
 
           <div className="tile is-parent is-vertical">
             { this.notificationBox() }

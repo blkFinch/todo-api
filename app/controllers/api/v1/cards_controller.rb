@@ -27,6 +27,7 @@ module Api::V1
     end
 
     private
+
       def card_params
         params.require(:card).permit(:title, :body)
       end

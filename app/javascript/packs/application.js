@@ -11,9 +11,9 @@ console.log('Henlo wold from React!')
 
 import React from 'react';
 import { render } from 'react-dom';
-import Greeting from '../components/Greeting';
+import Main from '../components/Main';
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.body.appendChild(document.createElement('div'));
-  render(<Greeting />, container);
+  render(<Main />, container);
 });
