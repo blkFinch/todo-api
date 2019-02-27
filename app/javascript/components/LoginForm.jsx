@@ -5,7 +5,7 @@ export default class LoginForm extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      email: '',
+      username: '',
       password: ''
     }
   }
@@ -18,13 +18,11 @@ export default class LoginForm extends React.Component{
   login = () => {
 
     const request = {
-      "auth":{
-          "email": this.state.email,
-          "password": this.state.password
-        }
+      "username": this.state.username,
+      "password": this.state.password
     }
 
-    axios.post('api/v1/user_token', request)
+    axios.post('api/v1/login', request)
     .then(response => {
       console.log(response)
     })
@@ -35,11 +33,11 @@ export default class LoginForm extends React.Component{
       <form>
         <div className="field">
           <label className="label">
-            Email
+            Username
           </label>
           <div className="control">
-            <input className="input" type='text' name="email"
-              value={this.state.email} onChange={this.handleInput} />
+            <input className="input" type='text' name="username"
+              value={this.state.username} onChange={this.handleInput} />
           </div>
         </div>
 

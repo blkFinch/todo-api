@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :cards
+      resources :users
+
+      post '/login', to: 'users#login'
+      get 'test', to: 'users#test'
 
       post 'user_token' => 'user_token#create'
       get 'users/current' => 'users#current'

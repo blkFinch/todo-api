@@ -32,9 +32,12 @@ gem 'jbuilder', '~> 2.5'
 # for haml as default
 gem "haml-rails", "~> 1.0"
 
+gem "simple_command"
+
 # for authentication
 gem 'knock'
 gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
