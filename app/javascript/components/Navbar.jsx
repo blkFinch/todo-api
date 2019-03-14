@@ -12,7 +12,7 @@ export default class Main extends React.Component{
       );
     }else{
       return(
-        <a class="button is-danger" onClick = { this.props.logout }>
+        <a class="button is-warning" onClick = { this.props.logout }>
           Log Out
         </a>
       )
@@ -21,9 +21,11 @@ export default class Main extends React.Component{
 
   render(){
     return(
-      <nav className="navbar">
+      <nav className="navbar is-primary">
         <div className="navbar-brand">
-          <b>TODO APP</b>
+          <div className="title is-2 has-text-light">
+            TODO APP
+          </div>
         </div>
         <div className="navbar-menu">
           <div class="navbar-end">
