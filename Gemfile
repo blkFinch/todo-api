@@ -34,6 +34,8 @@ gem "haml-rails", "~> 1.0"
 
 gem "simple_command"
 
+gem 'rack-cors'
+
 # for authentication
 gem 'knock'
 gem 'bcrypt', '~> 3.1.7'

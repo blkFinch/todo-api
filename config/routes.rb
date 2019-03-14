@@ -4,11 +4,17 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :cards
-      resources :users
+
+      resources :users do
+
+        resources :lists do
+          resources :cards
+        end
+      end
 
       post '/login', to: 'users#login'
-      get 'test', to: 'users#test'
+      get '/test', to: 'users#test'
+      delete '/logout', to: 'users#logout'
 
       post 'user_token' => 'user_token#create'
       get 'users/current' => 'users#current'

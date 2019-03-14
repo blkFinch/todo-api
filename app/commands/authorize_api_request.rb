@@ -1,8 +1,10 @@
 class AuthorizeApiRequest
   prepend SimpleCommand
+  include ::ActionController::Cookies
 
-  def initialize(headers = {})
+  def initialize(headers = {}, jwt)
     @headers = headers
+    @jwt = jwt
   end
 
   def call
@@ -19,7 +21,7 @@ class AuthorizeApiRequest
   end
 
   def decoded_auth_token
-    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+    @decoded_auth_token ||= JsonWebToken.decode(@jwt)
   end
 
   def http_auth_header
