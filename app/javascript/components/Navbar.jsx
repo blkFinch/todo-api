@@ -4,18 +4,12 @@ export default class Main extends React.Component{
 
 
   logoutBtn(){
-    if(this.props.loggedInStatus == false){
+    if(this.props.view != "login"){
       return(
-        <a class="button is-light">
-          Log in
-        </a>
+        <a className="button is-warning" onClick = { this.props.logout }>
+        Log Out
+      </a>
       );
-    }else{
-      return(
-        <a class="button is-warning" onClick = { this.props.logout }>
-          Log Out
-        </a>
-      )
     }
   }
 
@@ -28,10 +22,10 @@ export default class Main extends React.Component{
           </div>
         </div>
         <div className="navbar-menu">
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a class="button is-primary">
+          <div className="navbar-end">
+            <div className="navbar-item">
+              <div className="buttons">
+                <a className="button is-primary">
                   <strong>Sign up</strong>
                 </a>
                 {this.logoutBtn()}

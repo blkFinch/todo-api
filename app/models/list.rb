@@ -1,4 +1,4 @@
 class List < ApplicationRecord
-  belongs_to :user
+  belongs_to :project
   has_many :cards
 end

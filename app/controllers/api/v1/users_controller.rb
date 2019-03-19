@@ -39,9 +39,12 @@ module Api::V1
           expires: 1.hour.from_now
         }
 
+        @user = User.find_by(username: username).as_public_json
+
         render json: {
           access_token: command.result,
-          message: 'Login Successful'
+          message: 'Login Successful',
+          user: @user
         }
       else
         render json: { error: command.errors }, status: :unauthorized

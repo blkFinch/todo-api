@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+// TODO: Refactor out all the state stuff to the main class
+
 export default class LoginForm extends React.Component{
   constructor(props){
     super(props);
@@ -26,10 +28,7 @@ export default class LoginForm extends React.Component{
     axios.post('api/v1/login', request, {withCredentials: true})
     .then(response => {
       console.log(response);
-      this.props.handleLogin();
-      this.setState({
-        notification: response.data.message,
-      });
+      this.props.handleLogin(response.data.user);
       axios.defaults.headers.common['Authorization'] =
                                 'Bearer ' + response.data.access_token;
     })

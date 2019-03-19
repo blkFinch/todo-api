@@ -6,11 +6,14 @@ Rails.application.routes.draw do
     namespace :v1 do
 
       resources :users do
-
-        resources :lists do
-          resources :cards
+        resources :projects do
+          resources :lists do
+            resources :cards
+          end
         end
       end
+
+
 
       post '/login', to: 'users#login'
       get '/test', to: 'users#test'

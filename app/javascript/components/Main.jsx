@@ -2,45 +2,32 @@ import React from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
 import LoginForm from './Login/LoginForm';
+import ProjectView from './Projects/ProjectView';
 
 export default class Main extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       greeting: "Please Log In!",
-      logged_in: false
+      view: "login",
+      user:{}
     }
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.clearNotification = this.clearNotification.bind(this)
   }
 
+  //TODO: set user to local storage to save in case of refresh (Maybe case for Redux???)
   componentDidMount(){
     var token = document.querySelector('meta[name=csrf-token]').content
     axios.defaults.headers.common['X-CSRF-Token'] = token
-
-    this.checkLoggedIn();
   }
 
-  checkLoggedIn(){
-
-    axios.get('api/v1/test', {withCredentials: true})
-    .then(response => {
-      console.log(response);
-      this.setState({greeting: response.data.message});
-      return true;
-    }).catch((error) =>{
-      console.log('Error', error.message);
-      if(error.response.status == 500 ){
-        this.setState({greeting: "Try logging in first"});
-      }
-      return false;
-    })
-  }
-
-  handleLogin(){
+  handleLogin(user){
     this.setState({
-      logged_in: true,
-      greeting: "Welcome!"
+      view: "projects",
+      greeting: "Welcome!",
+      user: user
     });
   }
 
@@ -50,7 +37,8 @@ export default class Main extends React.Component {
       console.log(response);
       this.setState({
         greeting: response.data.message,
-        logged_in: false
+        view: "login",
+        user: {}
       });
     })
     .catch((error) =>{
@@ -58,27 +46,50 @@ export default class Main extends React.Component {
     })
   }
 
-  loginForm(){
-    if(this.state.logged_in == false){
-      return( <LoginForm handleLogin={this.handleLogin}/>)
+  notificationBox(){
+    if(this.state.greeting){
+      return(
+        <div className='tile notification is-secondary is-vertical'>
+          <div className="tile">
+            <a className="has-text-grey" onClick={this.clearNotification}>close</a>
+          </div>
+          <div className="tile">{this.state.greeting }</div>
+        </div>
+      )
+    }
+  }
+
+  clearNotification(){
+    this.setState({greeting: ""})
+  }
+
+  // MAIN VIEW
+  //
+  // this is where the main logic for conditional rendering should live
+  mainView(){
+    if(this.state.view=="login"){
+      return( <LoginForm handleLogin={this.handleLogin} onChangeUser={this.handleChangeUser} /> )
+    }else if(this.state.view=="projects"){
+      return(<ProjectView user={this.state.user} />)
     }
   }
 
   render() {
     return (
       <div>
-        < Navbar loggedInStatus= {this.state.logged_in} logout = {this.logout} />
+        < Navbar view={this.state.view} logout={this.logout} />
 
         <div className="section">
           <div className="container is-fluid">
-            <div className="tile is-ancestor">
-              <div className='tile'>
-              {this.loginForm()}
-              </div>
-              <div className='tile'>
-                {this.state.greeting}
-              </div>
+
+            <div className="level">
+              {this.notificationBox()}
             </div>
+
+            <div className="level">
+              {this.mainView()}
+            </div>
+
           </div>
         </div>
       </div>
