@@ -13,12 +13,24 @@ export default class Main extends React.Component{
     }
   }
 
+  title(){
+    var _title = "TODO APP"
+    if(this.props.activeProject.title != null){
+      _title = this.props.activeProject.title
+    }
+    return(
+      <h3>
+        {_title}
+      </h3>
+    );
+  }
+
   render(){
     return(
       <nav className="navbar is-primary">
         <div className="navbar-brand">
           <div className="title is-2 has-text-light">
-            TODO APP
+            {this.title()}
           </div>
         </div>
         <div className="navbar-menu">

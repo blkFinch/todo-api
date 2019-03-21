@@ -10,10 +10,12 @@ export default class Main extends React.Component {
     this.state = {
       greeting: "Please Log In!",
       view: "login",
-      user:{}
+      user:{},
+      activeProject:{}
     }
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleSelectProject = this.handleSelectProject.bind(this);
     this.clearNotification = this.clearNotification.bind(this)
   }
 
@@ -59,8 +61,15 @@ export default class Main extends React.Component {
     }
   }
 
+  //Deletes Flash Message Box
   clearNotification(){
     this.setState({greeting: ""})
+  }
+
+  //PROJECT HANDLERS
+  //
+  handleSelectProject(project){
+    this.setState({activeProject: project});
   }
 
   // MAIN VIEW
@@ -70,14 +79,14 @@ export default class Main extends React.Component {
     if(this.state.view=="login"){
       return( <LoginForm handleLogin={this.handleLogin} onChangeUser={this.handleChangeUser} /> )
     }else if(this.state.view=="projects"){
-      return(<ProjectView user={this.state.user} />)
+      return(<ProjectView user={this.state.user} handleSelectProject={this.handleSelectProject}/>)
     }
   }
 
   render() {
     return (
       <div>
-        < Navbar view={this.state.view} logout={this.logout} />
+        < Navbar view={this.state.view} logout={this.logout} activeProject={this.state.activeProject} />
 
         <div className="section">
           <div className="container is-fluid">
