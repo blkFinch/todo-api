@@ -3,6 +3,34 @@ import axios from 'axios';
 
 export default class NewProjectForm extends React.Component{
 
+  constructor(props){
+    super(props);
+    this.state={
+        title:"",
+        description: ""
+      }
+
+      this.submitNewProject = this.submitNewProject.bind(this);
+  }
+
+  handleInput = (e) => {
+    console.log("handling input");
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  submitNewProject(){
+    axios.post('/api/v1/projects', {
+      project:{
+        title: this.state.title,
+        description: this.state.description
+      }
+    })
+    .then(response =>{
+      this.props.refreshProjects(response);
+    })
+    .catch(error => console.log(error))
+  }
+
   render(){
     return(
       <div className="box">
@@ -10,18 +38,18 @@ export default class NewProjectForm extends React.Component{
           <div className="field">
             <label className="label">Project Title</label>
             <div className="control">
-              <input className="input" type="text" name="newTitle" value={this.props.newTitle}></input>
+              <input className="input" type="text" name="title" value={this.state.title} onChange={this.handleInput}></input>
             </div>
           </div>
           <div className="field">
             <label className="label">Project Description</label>
             <div className="control">
-              <textarea className="teaxtarea" type="textarea" name="newDesc" value={this.props.newDesc}></textarea>
+              <textarea className="teaxtarea" type="textarea" name="description" value={this.state.description} onChange={this.handleInput}></textarea>
             </div>
           </div>
           <div className="field">
-            <div class="control">
-              <button class="button is-link">Submit</button>
+            <div className="control">
+              <a className="button is-info" onClick={this.submitNewProject}>Submit</a>
             </div>
           </div>
         </form>

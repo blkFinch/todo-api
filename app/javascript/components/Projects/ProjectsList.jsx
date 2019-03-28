@@ -3,26 +3,44 @@ import ProjectListItem from './ProjectListItem';
 
 export default class ProjectsList extends React.Component{
 
+  activeProjectOptions(){
+    if(this.props.activeProject.title != null){
+      return(
+        <div>
+          <p className="menu-label">
+              {this.props.activeProject.title}
+          </p>
+          <ul className="menu-list">
+            <li>Edit</li>
+            <li>Delete</li>
+          </ul>
+        </div>
+      )
+    }
+  }
+
   render(){
     return(
-      <nav className="panel">
-        <p className="panel-heading">
+      <aside className="menu">
+      {this.activeProjectOptions()}
+        <p className="menu-label">
           {this.props.user.username}'s Projects
         </p>
 
-        {this.props.projects.map((project) =>{
-            return(
-              //TODO refactor this into a sub component
-              <div className="panel-block" key={project.id}>
-                <ProjectListItem project={project} onProjectClick={this.props.handleSelectProject} />
-              </div>
-            );
-          }
-        )}
-        <div className="panel-block">
+        <ul className="menu-list">
+          {this.props.projects.map((project) =>{
+              return(
+                <li key={project.id}>
+                  <ProjectListItem project={project} onProjectClick={this.props.handleSelectProject} />
+                </li>
+              );
+            }
+          )}
+        <li>
             <button className="button is-link is-outlined is-fullwidth" onClick={this.props.handleShowNewProject}>New Project?</button>
-        </div>
-      </nav>
+        </li>
+        </ul>
+      </aside>
     )
   }
 }

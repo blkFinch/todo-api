@@ -14,7 +14,6 @@ export default class LoginForm extends React.Component{
   }
 
   handleInput = (e) => {
-    console.log("handling input");
     this.setState({[e.target.name]: e.target.value})
   }
 
