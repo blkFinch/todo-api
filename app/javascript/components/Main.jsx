@@ -99,7 +99,7 @@ export default class Main extends React.Component {
   //PROJECT HANDLERS
   //
   handleSelectProject(project){
-    this.setState({activeProject: project, view: "active"});
+    this.setState({activeProject: project});
   }
 
   handleShowNewProject(){
@@ -130,27 +130,36 @@ export default class Main extends React.Component {
     }else if(this.state.view=="projects"){
       //main view of projects
       return(
-        <div>
+        <div className="tile is-ancestor">
+          <div className="tile is-parent">
 
-          <ProjectsList
-                activeProject={this.state.activeProject}
-                projects={this.state.projects}
-                user={this.state.user}
-                handleSelectProject={this.handleSelectProject}
-                handleShowNewProject={this.handleShowNewProject}
-          />
-          {this.newProjectForm()}
+            <div className="tile is-2">
+              <ProjectsList
+                    activeProject={this.state.activeProject}
+                    projects={this.state.projects}
+                    user={this.state.user}
+                    handleSelectProject={this.handleSelectProject}
+                    handleShowNewProject={this.handleShowNewProject}
+              />
+              {this.newProjectForm()}
+            </div>
+
+            <div className="tile">
+              {this.activeProjectView()}
+            </div>
+
+          </div>
         </div>
-
       )
     }
-    //TODO: rethink this state check to check if activeProject exists
-    if(this.state.view == "active"){
+  }
+
+  activeProjectView(){
+    if(!this.isEmpty(this.state.activeProject)){
       return(
         <ListsContainer activeProject={this.state.activeProject} />
       )
     }
-
   }
 
   newProjectForm(){
@@ -159,6 +168,16 @@ export default class Main extends React.Component {
         <NewProjectForm refreshProjects={this.handleRefreshProjects} />
       )
     }
+  }
+
+  //UTILITY
+  //
+  isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
   }
 
   render() {

@@ -8,6 +8,7 @@ export default class ListsContainer extends React.Component{
     super(props);
     this.state={
       lists: [],
+      project: this.props.activeProject
     }
   }
 
@@ -27,6 +28,27 @@ export default class ListsContainer extends React.Component{
     })
   }
 
+  addNewList = () =>{
+    axios.post(`/api/v1/projects/${this.state.project.id}/lists.json`,
+    {
+      list:
+      {
+        name: "New List"
+      }
+    }
+  )
+  .then(response =>{
+    console.log(response)
+    const lists = update(this.state.lists, {
+      $splice: [[0,0, response.data]] //adds data to index[0]
+    })
+    this.setState({
+      lists: lists
+    })
+  })
+  .catch(error => console.log(error))
+  }
+
   lists(){
     return(
       <div>
@@ -40,14 +62,17 @@ export default class ListsContainer extends React.Component{
   render(){
     return(
       <div>
-        <b>
-          User Lists here
-        </b>
 
-        <div>
+        <div className="tile is-parent">
+          
           {this.state.lists.map((list) =>{
             return( <List list={list} key={list.id} /> )
           })}
+
+          <div className="card">
+            <a className='button is-warning is-fullwidth' onClick={this.addNewList}>New List?</a>
+          </div>
+
         </div>
 
       </div>
