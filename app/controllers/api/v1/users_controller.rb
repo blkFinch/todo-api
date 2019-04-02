@@ -14,10 +14,10 @@ module Api::V1
       }
     end
 
-    def test
+    def return_active_user
       render json: {
-            message: 'You have passed authentication and authorization test'
-          }
+            user: current_user
+      }
     end
 
     def show

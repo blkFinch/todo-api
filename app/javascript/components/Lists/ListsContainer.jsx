@@ -15,19 +15,13 @@ export default class ListsContainer extends React.Component{
   }
 
   componentDidMount(){
-    var url= `/api/v1/projects/${this.props.activeProject.id}/lists`;
-    //call user lists
-    axios.get(url)
-    .then(response =>{
-      console.log(response)
-      this.setState({lists: response.data})
-    })
-    .catch(error => {
-      console.log(error);
-      if(error.response.status >= 500){
-        this.setState({notification: "You must be logged in!"})
-      }
-    })
+    this.getLists();
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.activeProject.id !== prevProps.activeProject.id){
+      this.getLists();
+    }
   }
 
   updateLists = (e) =>{
@@ -37,6 +31,22 @@ export default class ListsContainer extends React.Component{
     this.setState({
       lists: lists
     })
+  }
+
+  getLists() {
+    var url = `/api/v1/projects/${this.props.activeProject.id}/lists`;
+    //call user lists
+    axios.get(url)
+      .then(response => {
+        console.log(response);
+        this.setState({ lists: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.response.status >= 500) {
+          this.setState({ notification: "You must be logged in!" });
+        }
+      });
   }
 
   lists(){

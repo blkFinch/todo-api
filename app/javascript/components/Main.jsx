@@ -18,7 +18,8 @@ export default class Main extends React.Component {
 
       showNewProjectForm:false,
       activeProject:{},
-      projects: []
+      projects: [],
+      lists: []
     }
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -33,6 +34,18 @@ export default class Main extends React.Component {
   componentDidMount(){
     var token = document.querySelector('meta[name=csrf-token]').content
     axios.defaults.headers.common['X-CSRF-Token'] = token
+    this.checkForActiveUser();
+  }
+
+  checkForActiveUser(){
+    axios.get('/api/v1/return_active_user', {withCredentials: true})
+    .then(response => {
+      console.log(response);
+      this.handleLogin(response.data.user);
+    })
+    .catch(error =>{
+      console.log('Error', error.message);
+    })
   }
 
   handleLogin(user){
@@ -124,7 +137,7 @@ export default class Main extends React.Component {
   //
   // this is where the main logic for conditional rendering should live
   mainView(){
-    if(this.state.view=="login"){
+    if(this.state.view == "login"){
       //shows login and sign up
       return( <LoginForm handleLogin={this.handleLogin} onChangeUser={this.handleChangeUser} /> )
     }else if(this.state.view=="projects"){
@@ -157,7 +170,7 @@ export default class Main extends React.Component {
   activeProjectView(){
     if(!this.isEmpty(this.state.activeProject)){
       return(
-        <ListsContainer activeProject={this.state.activeProject} />
+        <ListsContainer activeProject={this.state.activeProject} lists={this.state.lists} />
       )
     }
   }

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
 
       post '/login', to: 'users#login'
-      get '/test', to: 'users#test'
+      get '/return_active_user', to: 'users#return_active_user'
       delete '/logout', to: 'users#logout'
 
       post 'user_token' => 'user_token#create'
