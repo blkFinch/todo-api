@@ -4,8 +4,10 @@ class List extends React.Component{
 
   render(){
     return(
-      <div key={this.props.list.id}>
-        {this.props.list.name}
+      <div className="column is-full" key={this.props.list.id}>
+        <p className="title">
+          {this.props.list.name}
+        </p>
       </div>
     )
   }//end of render
