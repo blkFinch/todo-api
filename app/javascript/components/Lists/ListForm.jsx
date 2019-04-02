@@ -5,7 +5,7 @@ export default class ListForm extends React.Component{
   constructor(props){
     super(props)
     this.state ={
-      name: "New List Title",
+      name: "",
     }
 
     this.submitNewList = this.submitNewList.bind(this);
@@ -26,7 +26,7 @@ export default class ListForm extends React.Component{
         list: list
     })
     .then(response => {
-      this.props.updateLists(response.data)
+      this.props.updateLists(response)
     })
     .catch(error => console.log(error))
   }
@@ -38,7 +38,7 @@ export default class ListForm extends React.Component{
         <div className="card">
           <div className="control">
             <input className="input" type='text' name="name"
-                value={this.state.name} onChange={this.handleInput} />
+                value={this.state.name} onChange={this.handleInput} placeholder="New List?" />
             </div>
           <a className='button is-warning is-fullwidth' onClick={this.submitNewList}>New List?</a>
         </div>
