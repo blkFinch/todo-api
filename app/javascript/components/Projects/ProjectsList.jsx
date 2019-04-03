@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import ProjectListItem from './ProjectListItem';
 
 export default class ProjectsList extends React.Component{
@@ -12,7 +13,9 @@ export default class ProjectsList extends React.Component{
           </p>
           <ul className="menu-list">
             <li>Edit</li>
-            <li>Delete</li>
+            <li>
+              <a onClick={this.props.deleteActiveProject}>Delete</a>
+            </li>
           </ul>
         </div>
       )

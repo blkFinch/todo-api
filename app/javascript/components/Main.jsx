@@ -28,6 +28,7 @@ export default class Main extends React.Component {
     this.handleSelectProject = this.handleSelectProject.bind(this);
     this.handleShowNewProject = this.handleShowNewProject.bind(this);
     this.handleRefreshProjects = this.handleRefreshProjects.bind(this);
+    this.deleteActiveProject = this.deleteActiveProject.bind(this);
   }
 
   //TODO: set user to local storage to save in case of refresh (Maybe case for Redux???)
@@ -133,6 +134,25 @@ export default class Main extends React.Component {
       })
   }
 
+  deleteActiveProject(){
+    let id = this.state.activeProject.id
+    axios.delete(`/api/v1/projects/${id}`)
+    .then(response =>{
+      console.log("project deleted");
+      const projIndex = this.state.projects.findIndex(x => x.id === id) //finds the index of the active project
+      const projects = update(this.state.projects,{ $splice: [[projIndex, 1]]})
+      this.setState({
+        activeProject: {},
+        projects: projects,
+        greeting: 'Project Deleted!',
+      })
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
+
   // MAIN VIEW
   //
   // this is where the main logic for conditional rendering should live
@@ -153,6 +173,7 @@ export default class Main extends React.Component {
                     user={this.state.user}
                     handleSelectProject={this.handleSelectProject}
                     handleShowNewProject={this.handleShowNewProject}
+                    deleteActiveProject ={this.deleteActiveProject}
               />
               {this.newProjectForm()}
             </div>
@@ -170,7 +191,9 @@ export default class Main extends React.Component {
   activeProjectView(){
     if(!this.isEmpty(this.state.activeProject)){
       return(
-        <ListsContainer activeProject={this.state.activeProject} lists={this.state.lists} />
+        <div className="container">
+          <ListsContainer activeProject={this.state.activeProject} lists={this.state.lists} />
+        </div>
       )
     }
   }

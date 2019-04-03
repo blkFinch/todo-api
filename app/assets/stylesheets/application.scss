@@ -16,10 +16,6 @@
 
  @import "bulma/bulma";
 
- .delete-btn {
-  visibility: hidden;
- }
-
- .todo-card:hover .delete-btn {
-    visibility: visible;
- }
+.list-column{
+   margin: 10px;
+}

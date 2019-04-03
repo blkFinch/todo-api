@@ -69,7 +69,7 @@ export default class ListsContainer extends React.Component{
             return( <List list={list} key={list.id} /> )
           })}
 
-          <div className="column is-full">
+          <div className="column is-3">
             <ListForm updateLists={this.updateLists} project={this.state.project} />
           </div>
 
