@@ -12,7 +12,11 @@ export default class ProjectsList extends React.Component{
               {this.props.activeProject.title}
           </p>
           <ul className="menu-list">
-            <li>Edit</li>
+            <li>
+            <a>
+              Edit
+            </a>
+            </li>
             <li>
               <a onClick={this.props.deleteActiveProject}>Delete</a>
             </li>

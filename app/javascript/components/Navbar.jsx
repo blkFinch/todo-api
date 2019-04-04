@@ -27,9 +27,9 @@ export default class Main extends React.Component{
 
   render(){
     return(
-      <nav className="navbar is-primary">
+      <nav className="navbar is-transparent">
         <div className="navbar-brand">
-          <div className="title is-2 has-text-light">
+          <div className="title is-2 has-text-primary">
             {this.title()}
           </div>
         </div>
