@@ -10,6 +10,10 @@ class List extends React.Component{
     this.toggleDropDown = this.toggleDropDown.bind(this);
   }
 
+  handleDeleteList = () => {
+    this.props.deleteList(this.props.list.id);
+  }
+
   toggleDropDown(){
     if(this.state.dropDownActive == false){
       this.setState({dropDownActive: true})
@@ -25,14 +29,14 @@ class List extends React.Component{
     }
 
     return(
-      <div className={dropdownClass.join(' ')} id="dd-list-menu">
+      <div className={dropdownClass.join(' ')} id="dd-list-menu" onBlur={this.toggleDropDown}>
         <div className="dropdown-trigger">
-          <button className="is-primary button" onClick={this.toggleDropDown}>...</button>
+          <button className="is-primary button" onClick={this.toggleDropDown} >...</button>
         </div>
         <div className="dropdown-menu" role="menu">
           <div className="dropdown-content has-text-grey">
             <a className="dropdown-item">Edit</a>
-            <a className="dropdown-item">Delete</a>
+            <a className="dropdown-item" onMouseDown={this.handleDeleteList}>Delete</a>
           </div>
         </div>
       </div>

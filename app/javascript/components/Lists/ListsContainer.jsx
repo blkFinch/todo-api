@@ -12,6 +12,8 @@ export default class ListsContainer extends React.Component{
       editingListId: null,
       project: this.props.activeProject
     }
+
+    this.deleteList = this.deleteList.bind(this)
   }
 
   componentDidMount(){
@@ -22,6 +24,21 @@ export default class ListsContainer extends React.Component{
     if(this.props.activeProject.id !== prevProps.activeProject.id){
       this.getLists();
     }
+  }
+
+  deleteList(id){
+    axios.delete(`/api/v1/projects/${this.state.project.id}/lists/${id}`)
+      .then(response => {
+        console.log(response);
+        const listIndex = this.state.lists.findIndex(x => x.id === id);
+        const lists = update(this.state.lists,{ $splice: [[listIndex, 1]]});
+        this.setState({
+          lists: lists
+        });
+      })
+      .catch(error =>{
+        console.log(error);
+      });
   }
 
   updateLists = (e) =>{
@@ -66,7 +83,7 @@ export default class ListsContainer extends React.Component{
         <div className="columns">
 
           {this.state.lists.map((list) =>{
-            return( <List list={list} key={list.id} /> )
+            return( <List list={list} key={list.id} deleteList={this.deleteList} /> )
           })}
 
           <div className="column is-3">
