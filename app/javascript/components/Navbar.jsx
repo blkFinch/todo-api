@@ -6,7 +6,7 @@ export default class Main extends React.Component{
   logoutBtn(){
     if(this.props.view != "login"){
       return(
-        <a className="button is-warning" onClick = { this.props.logout }>
+        <a className="button is-warning is-outlined" onClick = { this.props.logout }>
         Log Out
       </a>
       );
@@ -27,9 +27,9 @@ export default class Main extends React.Component{
 
   render(){
     return(
-      <nav className="navbar is-transparent">
+      <nav className="navbar is-primary">
         <div className="navbar-brand">
-          <div className="title is-2 has-text-primary">
+          <div className="title is-2 has-text-light">
             {this.title()}
           </div>
         </div>

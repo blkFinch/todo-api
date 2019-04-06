@@ -8,13 +8,14 @@ Rails.application.routes.draw do
       resources :users
 
       resources :projects do
-        resources :lists do
-          resources :cards
-        end
+        resources :lists
       end
 
+      resources :lists do
+        resources :cards
+      end
 
-
+      resources :cards, only: :update
 
       post '/login', to: 'users#login'
       get '/return_active_user', to: 'users#return_active_user'

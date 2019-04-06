@@ -2,12 +2,14 @@ module Api::V1
   class CardsController < ApplicationController
 
     def index
-      @cards = Card.order("created_at DESC")
+      @list = List.find(params[:list_id])
+      @cards = @list.cards.order("created_at DESC")
       render json: @cards
     end
 
     def create
-      @card = Card.create(card_params)
+      @list = List.find(params[:list_id])
+      @card = @list.cards.create(card_params)
       render json: @card
     end
 

@@ -35,12 +35,16 @@ export default class ListForm extends React.Component{
     return(
       <div>
 
-        <div className="card">
-          <div className="control">
-            <input className="input" type='text' name="name"
-                value={this.state.name} onChange={this.handleInput} placeholder="New List?" />
-            </div>
-          <a className='button is-warning is-fullwidth' onClick={this.submitNewList}>New List?</a>
+        <div className="form">
+          <div className="field">
+            <div className="control">
+              <input className="input" type='text' name="name"
+                  value={this.state.name} onChange={this.handleInput} placeholder="New List Title" />
+              </div>
+          </div>
+          <div className="field">
+            <a className='button is-success is-fullwidth' onClick={this.submitNewList}>New List</a>
+          </div>
         </div>
 
       </div>
