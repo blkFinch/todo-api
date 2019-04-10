@@ -16,7 +16,7 @@
 * rspec
 testing framework
 
-*docker
+* docker
 
 
 # SETUP
