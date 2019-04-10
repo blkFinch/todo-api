@@ -33,27 +33,27 @@ export default class NewProjectForm extends React.Component{
 
   render(){
     return(
-      <div className="box">
-        <form>
-          <div className="field">
-            <label className="label">Project Title</label>
-            <div className="control">
-              <input className="input" type="text" name="title" value={this.state.title} onChange={this.handleInput}></input>
+        <div>
+          <form>
+            <div className="field">
+              <label className="label">Project Title</label>
+              <div className="control">
+                <input className="input" type="text" name="title" value={this.state.title} onChange={this.handleInput}></input>
+              </div>
             </div>
-          </div>
-          <div className="field">
-            <label className="label">Project Description</label>
-            <div className="control">
-              <textarea className="teaxtarea" type="textarea" name="description" value={this.state.description} onChange={this.handleInput}></textarea>
+            <div className="field">
+              <label className="label">Project Description</label>
+              <div className="control">
+                <textarea className="textarea" type="textarea" name="description" value={this.state.description} onChange={this.handleInput}></textarea>
+              </div>
             </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <a className="button is-info" onClick={this.submitNewProject}>Submit</a>
+            <div className="field">
+              <div className="control">
+                <a className="button is-info" onClick={this.submitNewProject}>Submit</a>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
     );
   }
 }

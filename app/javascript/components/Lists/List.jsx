@@ -60,10 +60,25 @@ class List extends React.Component{
     })
     .catch(error => console.log(error))
   }
+
   editCard = (id) => {
     this.setState({
       editingCardId: id
     })
+  }
+
+  deleteCard = (id) =>{
+    axios.delete(`api/v1/lists/${this.props.list.id}/cards/${id}`)
+      .then(response => {
+        const cardIndex = this.state.cards.findIndex(x => x.id === id);
+        const cards = update(this.state.cards,{ $splice: [[cardIndex, 1]]});
+        this.setState({
+          cards: cards
+        });
+      })
+      .catch(error =>{
+        console.log(error);
+      });
   }
 
   updateCard = (card) => {
@@ -121,7 +136,7 @@ class List extends React.Component{
           return(<CardForm card={card} key={card.id} updateCard={this.updateCard}/>)
         }else{
           return(
-            <Card card={card} key={card.id} editCard={this.editCard} />
+            <Card card={card} key={card.id} editCard={this.editCard} deleteCard={this.deleteCard} />
           )
         }
       })

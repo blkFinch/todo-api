@@ -1,29 +1,23 @@
 # STACK
  This app uses the following technologies
- ..* ruby rails
+ * ruby rails
  for api
 
- ..* postgresql
+ * postgresql
  database
 
- ..* react
+ * react
  frontend framework
 
- ..* bulma
+ * bulma
  css framework
  just add with yarn and then require in application.css
 
-..* rspec
+* rspec
 testing framework
 
-..*docker
+*docker
 
-..*knock
-gem for handling authentication. remember to run
-```
-rails generate knock:install
-```
-to create knock config file
 
 # SETUP
 

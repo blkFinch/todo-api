@@ -16,7 +16,6 @@ export default class Main extends React.Component {
       view: "login",
       user:{}, //TODO: move all user info in api
 
-      showNewProjectForm:false,
       activeProject:{},
       projects: [],
       lists: []
@@ -118,7 +117,6 @@ export default class Main extends React.Component {
 
   handleShowNewProject(){
     this.setState({
-      showNewProjectForm: true,
       activeProject:{}
     })
   }
@@ -175,7 +173,6 @@ export default class Main extends React.Component {
                     handleShowNewProject={this.handleShowNewProject}
                     deleteActiveProject ={this.deleteActiveProject}
               />
-              {this.newProjectForm()}
             </div>
 
             <div className="tile">
@@ -195,11 +192,7 @@ export default class Main extends React.Component {
           <ListsContainer activeProject={this.state.activeProject} lists={this.state.lists} />
         </div>
       )
-    }
-  }
-
-  newProjectForm(){
-    if(this.state.showNewProjectForm == true){
+    }else{
       return(
         <NewProjectForm refreshProjects={this.handleRefreshProjects} />
       )

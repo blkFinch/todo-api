@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 class Card extends React.Component{
 
@@ -7,7 +8,13 @@ class Card extends React.Component{
   }
 
   handleDelete = () =>{
-    this.props.onDelete(this.props.card.id)
+    this.props.deleteCard(this.props.card.id)
+  }
+
+  cardBody(){
+    return(
+      <ReactMarkdown source={this.props.card.body} className="content" />
+    )
   }
 
   render(){
@@ -15,12 +22,12 @@ class Card extends React.Component{
       <div className="todo-card card list-card" key={this.props.card.id}>
         <div className="card-header has-background-light">
           <p className="card-header-title">{this.props.card.title}</p>
-          <div className="card-header-icon is-button is-small"
-            onClick={this.handleEdit}>...</div>
-          <div className="card-header-icon" onClick={this.handleDelete}>x</div>
+          <a className="button is-small is-light"
+            onClick={this.handleEdit}>...</a>
+          <a className="button is-small is-light" onClick={this.handleDelete}>x</a>
         </div>
         <div className="card-content">
-          <p>{this.props.card.body}</p>
+          {this.cardBody()}
         </div>
       </div>
     )
