@@ -88,9 +88,9 @@ export default class Main extends React.Component {
   notificationBox(){
     if(this.state.greeting){
       return(
-        <div className='tile notification is-secondary is-vertical'>
+        <div className='tile notification is-info is-vertical'>
           <div className="tile">
-            <a className="has-text-grey" onClick={this.clearNotification}>close</a>
+            <a className="has-text-light" onClick={this.clearNotification}>close</a>
           </div>
           <div className="tile">{this.state.greeting }</div>
         </div>

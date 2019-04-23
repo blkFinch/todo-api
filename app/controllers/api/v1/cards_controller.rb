@@ -9,7 +9,8 @@ module Api::V1
 
     def create
       @list = List.find(params[:list_id])
-      @card = @list.cards.create(card_params)
+      @project = @list.project
+      @card = @list.cards.create(card_params.merge(project: @project))
       render json: @card
     end
 

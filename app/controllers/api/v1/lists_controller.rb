@@ -3,7 +3,7 @@ module Api::V1
 
     def index
       @project = Project.find(params[:project_id])
-      @lists = @project.lists
+      @lists = @project.lists.order('created_at DESC').reverse_order
       render json: @lists
     end
 
