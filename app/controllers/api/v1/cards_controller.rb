@@ -3,7 +3,7 @@ module Api::V1
 
     def index
       @list = List.find(params[:list_id])
-      @cards = @list.cards.order("created_at DESC")
+      @cards = @list.cards.order(:order_index).reverse_order
       render json: @cards
     end
 
@@ -32,7 +32,7 @@ module Api::V1
     private
 
       def card_params
-        params.require(:card).permit(:title, :body)
+        params.require(:card).permit(:title, :body, :order_index)
       end
   end
 end

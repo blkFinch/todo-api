@@ -92,6 +92,24 @@ class List extends React.Component{
     })
   }
 
+  moveCardUp = (card) => {
+
+    var oi = card.order_index + 1
+
+    const newcard ={
+      order_index: oi
+    }
+
+    axios.patch(`/api/v1/cards/${card.id}`,
+      {
+        card: newcard
+    })
+    .then(response => {
+      this.updateCard(response.data)
+    })
+    .catch(error => console.log(error))
+  }
+
   //LIST HANDLERS
   //
   handleDeleteList = () => {
@@ -133,10 +151,10 @@ class List extends React.Component{
     return(
       this.state.cards.map((card) => {
         if(this.state.editingCardId == card.id){
-          return(<CardForm card={card} key={card.id} updateCard={this.updateCard}/>)
+          return(<CardForm card={card} key={card.id} updateCard={this.updateCard} />)
         }else{
           return(
-            <Card card={card} key={card.id} editCard={this.editCard} deleteCard={this.deleteCard} />
+            <Card card={card} key={card.id} editCard={this.editCard} deleteCard={this.deleteCard}  moveCardUp={this.moveCardUp}/>
           )
         }
       })
