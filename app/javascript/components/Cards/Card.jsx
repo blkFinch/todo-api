@@ -2,10 +2,12 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 
 class Card extends React.Component {
-  constructor() {
-    super();
+  // just using props to set initial collapsed state of cards
+  constructor(props) {
+    super(props);
     this.state = {
-      isHidden: true
+      isHidden: props.card.collapsed,
+      card: props.card
     };
     this.toggleBody = this.toggleBody.bind(this);
   }
@@ -14,6 +16,12 @@ class Card extends React.Component {
     this.setState({
       isHidden: !this.state.isHidden
     });
+    const card={
+      collapsed: !this.state.isHidden,
+      id: this.state.card.id
+    }
+
+    this.props.updateCardAttributes(card);
   }
 
   handleEdit = () => {
@@ -74,7 +82,7 @@ class Card extends React.Component {
         </div>{" "}
         {this.cardBody()}{" "}
         <div className="card-footer">
-          <div className="card-footer-item" onClick={this.handleMoveUp}>
+          <div className="card-footer-item">
             {" "}
             <i className="fas fa-arrow-up" />{" "}
           </div>{" "}

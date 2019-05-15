@@ -3,20 +3,21 @@ module Api::V1
 
     def index
       @list = List.find(params[:list_id])
-      @cards = @list.cards.order(:order_index).reverse_order
+      @cards = @list.cards.order(:order_index)
+      sort_cards(@cards)
       render json: @cards
     end
 
     def create
       @list = List.find(params[:list_id])
-      @project = @list.project
-      @card = @list.cards.create(card_params.merge(project: @project))
+      @card = @list.cards.create
       render json: @card
     end
 
     def update
       @card = Card.find(params[:id])
       @card.update_attributes(card_params)
+      puts @card.errors.inspect
       render json: @card
     end
 
@@ -29,10 +30,18 @@ module Api::V1
       end
     end
 
+    def sort_cards(cards)
+      i = 1
+      cards.each do |card|
+        card.update_attribute(:order_index, i)
+        i += 1
+      end
+    end
+
     private
 
       def card_params
-        params.require(:card).permit(:title, :body, :order_index)
+        params.require(:card).permit(:title, :body, :order_index, :collapsed)
       end
   end
 end

@@ -20,17 +20,12 @@ export default class CardForm extends React.Component{
   updateCard(){
     const card ={
       title: this.state.title,
-      body: this.state.body
+      body: this.state.body,
+      id: this.props.card.id
     }
 
-    axios.put(`/api/v1/cards/${this.props.card.id}`,
-      {
-        card: card
-    })
-    .then(response => {
-      this.props.updateCard(response.data)
-    })
-    .catch(error => console.log(error))
+    this.props.updateCardAttributes(card)
+
   }
 
   render(){

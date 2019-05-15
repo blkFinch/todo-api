@@ -81,6 +81,17 @@ class List extends React.Component{
       });
   }
 
+  updateCardAttributes = (card) =>{
+    axios.put(`/api/v1/cards/${card.id}`,
+      {
+        card: card
+    })
+    .then(response => {
+      this.updateCard(response.data)
+    })
+    .catch(error => console.log(error))
+  }
+
   updateCard = (card) => {
     const cardIndex = this.state.cards.findIndex( x => x.id === card.id)
     const cards = update(this.state.cards, {
@@ -92,6 +103,7 @@ class List extends React.Component{
     })
   }
 
+  //TODO: REMOVE THIS -- DEPRECATED JUST USE UPDATE CARD
   moveCardUp = (card) => {
 
     var oi = card.order_index + 1
@@ -151,10 +163,10 @@ class List extends React.Component{
     return(
       this.state.cards.map((card) => {
         if(this.state.editingCardId == card.id){
-          return(<CardForm card={card} key={card.id} updateCard={this.updateCard} />)
+          return(<CardForm card={card} key={card.id} updateCardAttributes={this.updateCardAttributes} />)
         }else{
           return(
-            <Card card={card} key={card.id} editCard={this.editCard} deleteCard={this.deleteCard}  moveCardUp={this.moveCardUp}/>
+            <Card card={card} key={card.id} editCard={this.editCard} deleteCard={this.deleteCard}  updateCardAttributes={this.updateCardAttributes}/>
           )
         }
       })
